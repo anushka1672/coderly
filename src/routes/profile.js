@@ -20,6 +20,7 @@ profileRouter.get("/profile", userAuth, async (req, res) => {
 
 profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
   try {
+     console.log("Full req.body:", req.body);
     if (!validateEditFields(req)) {
       res.status(400).send("field can not be edited");
     }
@@ -27,16 +28,23 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
     const user = req.user;
     console.log("phle wala user", user);
 
-    const updates = Object.keys(req.body);
+   
+    const updatedUser = await User.findByIdAndUpdate(
+      user._id,
+      req.body ,  // $set will add gender field even if it didn't exist
+      { 
+        new: true,          // Return updated document
+        runValidators: true // Run validation for gender
+      }
+    )
 
-    updates.forEach((update) => {
-      user[update] = req.body[update];
-    });
+    if (!updatedUser) {
+      return res.status(404).send("User not found");
+    }
 
-    await user.save();
-    console.log("badla hua user", user);
+    console.log("badla hua user", updatedUser);
 
-    res.send("user edited successfully" + user);
+    res.send("user edited successfully" + updatedUser);
   } catch (err) {
     res.status(400).send("error is occured" + err.message);
   }

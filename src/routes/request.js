@@ -42,8 +42,8 @@ requestRouter.post(
       const connectionRequest = ConnectionRequest({
         fromUserId,
         toUserId,
-         fromUserName: req.user.firstName,
-         toUserName: toUser.firstName,
+        fromUserName: req.user.firstName,
+        toUserName: toUser.firstName,
         status,
       });
 
@@ -97,6 +97,7 @@ requestRouter.post(
     } catch (err) {
       res.status(404).send("error is occured" + err.message);
     }
+    
   },
 );
 

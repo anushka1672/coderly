@@ -6,13 +6,14 @@ const User = require("../models/user");
 
 // kis kis ne rquest send ki h mujhge interested ki
 
-userRouter.get("/user/request", userAuth, async (req, res) => {
+userRouter.get("/user/request/received", userAuth, async (req, res) => {
   try {
     const loggedinUser = req.user;
     const allRequests = await ConnectionRequest.find({
       toUserId: loggedinUser._id,
       status: "interested",
-    }).populate("fromUserId", ["firstName"]);
+    })
+    // .populate("fromUserId", ["firstName"]);
 
     res.json({ msg: "all request successfully fetched", data: allRequests });
   } catch (err) {
@@ -28,10 +29,13 @@ userRouter.get("/user/connections/intersted", userAuth, async (req, res) => {
     const loggedinUser = req.user;
     const connections = await ConnectionRequest.find({
       $or: [{ fromUserId: loggedinUser._id, status: "interested" }],
-    }).populate("toUserId", ["firstName"]);
+      //  fromUserId: loggedinUser._id,
+      // status: "interested",
+    })
+    // .populate("toUserId", ["firstName"]);
     res.json({
       msg: "all request successfully fetched of intersted ssssss",
-      data: connections,
+      data: connections
     });
   } catch (err) {
     res.status(404).send("error is occured" + err.message);
@@ -57,6 +61,7 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
 });
 
 
+
 userRouter.get("/feed", userAuth, async (req, res) => {
   try {
     const loggedinUser = req.user;
@@ -67,6 +72,9 @@ userRouter.get("/feed", userAuth, async (req, res) => {
     const connectionRequest = await ConnectionRequest.find({
       $or: [{ fromUserId: loggedinUser._id }, { toUserId: loggedinUser._id }],
     });
+
+    console.log("hello anushka",connectionRequest);
+    
     connectionRequest.forEach((req) => {
       hideUsersFromFeed.add(req.fromUserId);
       hideUsersFromFeed.add(req.toUserId);
@@ -78,12 +86,13 @@ userRouter.get("/feed", userAuth, async (req, res) => {
         { _id: { $nin: Array.from(hideUsersFromFeed) } },
         { _id: { $ne: loggedinUser._id } },
       ],
-    }).select("firstName lastName password email").skip(skip).limit(limit)
+    }).select("firstName lastName password email imgUrl").skip(skip).limit(limit)
 
     res.json({ msg: "its successfull", users });
   } catch (err) {
     res.status(404).send("error is occured" + err.message);
   }
+  
 });
 
 module.exports = userRouter;
