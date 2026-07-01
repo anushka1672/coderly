@@ -4,6 +4,7 @@ const requestRouter = express.Router();
 const ConnectionRequest = require("../models/connectionRequest");
 const User = require("../models/user");
 
+
 requestRouter.post(
   "/request/send/:status/:toUserId",
   userAuth,
@@ -48,6 +49,7 @@ requestRouter.post(
       });
 
       const data = await connectionRequest.save();
+   
       res.json({
         msg: req.user.firstName + "is sending request to" + toUser.firstName,
         data,

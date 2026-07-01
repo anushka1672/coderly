@@ -11,6 +11,17 @@ function validationSignupData(data) {
     throw new Error("password is not valid");
   }
 }
+function validationForAi(data) {
+    const { firstName,lastName,imgUrl,age} = data
+
+  if (!firstName || !lastName) {
+    throw new Error("please fill all the fields");
+  } else if (!imgUrl) {
+    throw new Error("please fill imgUrl");
+  } else if (!age) {
+    throw new Error("please fill age");
+  }
+}
 
 
 function validateEditFields(req){
@@ -21,4 +32,4 @@ function validateEditFields(req){
    return isAllowedEdit
 }
 
-module.exports = { validationSignupData , validateEditFields};
+module.exports = { validationSignupData , validateEditFields,validationForAi};

@@ -14,14 +14,19 @@
   "author": "Anushka",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1042.0",
+    "@aws-sdk/client-ses": "^3.1042.0",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.1.0",
     "mongoos": "^0.0.1-security",
     "mongoose": "^9.3.1",
+    "openai": "^6.38.0",
+    "socket.io": "^4.8.3",
     "validator": "^13.15.26"
   }
 }

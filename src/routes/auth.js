@@ -1,8 +1,8 @@
+const express =  require("express");
 const {validationSignupData} = require("../utils/validation");
 const { model } = require("mongoose");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
-const express =  require("express");
 const jsonwebtoken = require("jsonwebtoken");
 
 const {userAuth} = require("../middlewares/auth")
