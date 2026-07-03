@@ -50,12 +50,8 @@ authRouter.post("/login",async(req,res)=>{
 // const correctPassword = await bcrypt.compare(password,user.password);
 if(IsPasswordValid){
   const token =await user.getJwt()
-  res.cookie("token", token, {
-  
-  httpOnly: true,
-  sameSite: "Lax",   // ✅ localhost ke liye
-  secure: false,
-   path: "/" 
+  res.cookie("token", token, { 
+  secure: process.env.NODE_ENV === "production" 
 });
   res.send(user);
 }else{

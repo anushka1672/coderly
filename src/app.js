@@ -18,7 +18,6 @@ const { initializeSocket } = require("./utils/socket.js");
 const http = require("http");
 const { chatRouter } = require("./routes/chat.js");
 const server = http.createServer(app)
- initializeSocket(server)
 
 
 
@@ -32,6 +31,7 @@ app.use(
   })
 );
 
+initializeSocket(server)
 
 
 app.use(express.json());

@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 
+
 async function connectDB() {
   try {
     await mongoose.connect(
-      "mongodb+srv://anushkakhewadia_db_user:bQ1zXJb1KaCCItQ9@cluster0.exvvcap.mongodb.net/mycoderly?appName=Cluster0"
+      process.env.MONGO_URL
     );
     console.log("Database connected");
   } catch (err) {
