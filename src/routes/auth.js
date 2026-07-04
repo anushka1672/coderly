@@ -80,12 +80,10 @@ if (IsPasswordValid) {
 
 authRouter.post("/logout", userAuth, async (req, res) => {
   try {
-    res.cookie("token", null, {
-      expires: new Date(0),
-      httpOnly: true,
-      sameSite: "none",
-      secure: process.env.NODE_ENV === "production",
-    });
+    res.clearCookie("token")
+    // res.cookie("token", null, {
+    //   expires: new Date(0),
+    // });
     res.status(200).send("logout successfully");
   } catch (err) {
     res.status(404).send("error is occured" + err.message);
