@@ -5,7 +5,7 @@ function initializeSocket(server) {
   // Yahan Socket.IO server create ho raha hai.
   const io = socket(server, {
     cors: {
-      origin: ["http://localhost:5173", "https://coderly-frontend.netlify.app"],
+      origin: ["http://localhost:5173", "https://codershub.online"],
       credentials: true,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization"],
